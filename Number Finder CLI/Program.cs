@@ -17,7 +17,7 @@ namespace Number_Finder_CLI
             Console.Read();
         }
 
-        static List<int> GenerateAll(int min, int max)
+        static List<int> GenerateAll(int min, int max) // Generates every number between the range of min and max.
         {
             List<int> outArray = new List<int>();
 
@@ -27,7 +27,7 @@ namespace Number_Finder_CLI
             }
             return outArray;
         }
-        static List<int> MultipleOf (List<int> inArray, int multiple)
+        static List<int> MultipleOf (List<int> inArray, int multiple) // Returns all values that are multiples of "multiple" from inside of inArray.
         {
             List<int> outArray = new List<int>();
 
@@ -50,7 +50,7 @@ namespace Number_Finder_CLI
             //Console.WriteLine("There are {0} multiples of {1} in the selected range.", outArray.Count, multiple);
             return outArray;
         }
-        static List<int>DifferentialFromMultiple(List<int> inArray, int differential, int multiple)
+        static List<int>DifferentialFromMultiple(List<int> inArray, int differential, int multiple) // Returns all values that are multiples of "multiple" from inArray, however, applies a differential to their values.
         {
             List<int> m_inArray = MultipleOf(inArray, multiple);
             List<int> outArray = new List<int>();
@@ -61,7 +61,7 @@ namespace Number_Finder_CLI
             }
             return outArray;
         }
-        static void ListItems(List<int> array)
+        static void ListItems(List<int> array) // A convenience function for listing all of the items in an array. 
         {
             foreach (int item in array)
             {
