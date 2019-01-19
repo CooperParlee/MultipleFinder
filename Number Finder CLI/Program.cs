@@ -10,25 +10,27 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            foreach (var item in MultipleOf(GenerateAll(12), 2))
-            {
-                Console.WriteLine(item.ToString());
-            }
+            List<int> range = GenerateAll(20);
+            List<int> outs = DifferentialFromMultiple(range, 1, 3);
 
+            foreach(int item in outs)
+            {
+                Console.WriteLine(item);
+            }
             Console.Read();
         }
 
-        static int [] GenerateAll(int size)
+        static List<int> GenerateAll(int size)
         {
-            int[] outArray = new int[size];
+            List<int> outArray = new List<int>();
 
             for (int i = 0; i < size; i++)
             {
-                outArray[i] = i + 1;
+                outArray.Add(i + 1);
             }
             return outArray;
         }
-        static List<int> MultipleOf (int[] inArray, int multiple)
+        static List<int> MultipleOf (List<int> inArray, int multiple)
         {
             List<int> outArray = new List<int>();
 
@@ -37,7 +39,6 @@ namespace Number_Finder_CLI
                 double d = ((double)num / (double)multiple);
                 if (d == (int)d)
                 {
-                    Console.WriteLine("Yes! {0} is a multiple of {1}!", num, multiple);
                     if (outArray != null)
                     {
                         outArray.Add(num);
@@ -45,7 +46,18 @@ namespace Number_Finder_CLI
 
                 }
             }
+            Console.WriteLine("There are {0} multiples of {1} in the selected range.", outArray.Count, multiple);
+            return outArray;
+        }
+        static List<int>DifferentialFromMultiple(List<int> inArray, int differential, int multiple)
+        {
+            List<int> m_inArray = MultipleOf(inArray, multiple);
+            List<int> outArray = new List<int>();
             
+            foreach(int num in m_inArray)
+            {
+                outArray.Add(num + differential);
+            }
             return outArray;
         }
     }
