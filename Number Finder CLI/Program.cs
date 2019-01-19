@@ -10,21 +10,18 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            List<int> range = GenerateAll(20);
-            List<int> outs = DifferentialFromMultiple(range, 1, 3);
+            List<int> range = GenerateAll(1, 20);
+            List<int> outs = MultipleOf(range, 100);
 
-            foreach(int item in outs)
-            {
-                Console.WriteLine(item);
-            }
+            ListItems(outs);
             Console.Read();
         }
 
-        static List<int> GenerateAll(int size)
+        static List<int> GenerateAll(int min, int max)
         {
             List<int> outArray = new List<int>();
 
-            for (int i = 0; i < size; i++)
+            for (int i = min-1; i < max; i++)
             {
                 outArray.Add(i + 1);
             }
@@ -42,11 +39,15 @@ namespace Number_Finder_CLI
                     if (outArray != null)
                     {
                         outArray.Add(num);
+                        break;
                     }
-
                 }
             }
-            Console.WriteLine("There are {0} multiples of {1} in the selected range.", outArray.Count, multiple);
+            if (outArray.Count == 0)
+            {
+                Console.WriteLine("There are no multiples in this range.");
+            }
+            //Console.WriteLine("There are {0} multiples of {1} in the selected range.", outArray.Count, multiple);
             return outArray;
         }
         static List<int>DifferentialFromMultiple(List<int> inArray, int differential, int multiple)
@@ -59,6 +60,13 @@ namespace Number_Finder_CLI
                 outArray.Add(num + differential);
             }
             return outArray;
+        }
+        static void ListItems(List<int> array)
+        {
+            foreach (int item in array)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
