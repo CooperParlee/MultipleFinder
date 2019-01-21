@@ -12,8 +12,7 @@ namespace Number_Finder_CLI
         {
             int startTime = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
 
-            List<int> range = GenerateAll(1, 6859000000);
-            List<int> outs = MultipleArrayOfDifferential(range, new int[] {2, 3, 4, 5, 6}, 1);
+            List<int> outs = MultipleArrayOfDifferential(GenerateAll(1, 19000000), new int[] {2, 3, 4, 5, 6}, 1);
 
             Console.WriteLine("There are {0} possibilities in the specified range. Applying next filter", outs.Count);
             List<int> outs2 = MultipleOf(outs, 7);
