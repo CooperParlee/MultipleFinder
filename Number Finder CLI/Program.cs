@@ -10,17 +10,23 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            List<int> range = GenerateAll(1, 1000);
+            int startTime = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+
+            List<int> range = GenerateAll(1, 6859000000);
             List<int> outs = MultipleArrayOfDifferential(range, new int[] {2, 3, 4, 5, 6}, 1);
 
             Console.WriteLine("There are {0} possibilities in the specified range. Applying next filter", outs.Count);
             List<int> outs2 = MultipleOf(outs, 7);
+
             Console.WriteLine("There are {0} possibilities in this range.", outs2.Count);
-            ListItems(outs2);
+            int now = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+            Console.WriteLine("Finished. Took {0} seconds.", now - startTime);
+
+            CSV_Write.SaveArrayAsCSV<int>(outs2, "All Values Between 1-2mil", "Ntest.csv");
             Console.Read();
         }
 
-        static List<int> GenerateAll(int min, int max) // Generates every number between the range of min and max.
+        static List<int> GenerateAll(int min, long max) // Generates every number between the range of min and max.
         {
             List<int> outArray = new List<int>();
 
