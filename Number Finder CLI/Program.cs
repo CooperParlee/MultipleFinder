@@ -10,31 +10,13 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            int startTime = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-
-            List<int> outs = MultipleArrayOfDifferential(GenerateAll(1, 19000000), new int[] {2, 3, 4, 5, 6}, 1);
-
-            Console.WriteLine("There are {0} possibilities in the specified range. Applying next filter", outs.Count);
-            List<int> outs2 = MultipleOf(outs, 7);
-
-            Console.WriteLine("There are {0} possibilities in this range.", outs2.Count);
-            int now = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-            Console.WriteLine("Finished. Took {0} seconds.", now - startTime);
-
-            CSV_Write.SaveArrayAsCSV<int>(outs2, "All Values Between 1-2mil", "Ntest.csv");
+            foreach (int i in Chunkinator.GenerateBlock(2))
+            {
+                Console.Out.WriteLine(i);
+            }
             Console.Read();
         }
 
-        static List<int> GenerateAll(int min, long max) // Generates every number between the range of min and max.
-        {
-            List<int> outArray = new List<int>();
-
-            for (int i = min-1; i < max; i++)
-            {
-                outArray.Add(i + 1);
-            }
-            return outArray;
-        }
         static List<int> MultipleOf (List<int> inArray, int multiple) // Returns all values that are multiples of "multiple" from inside of inArray.
         {
             List<int> outArray = new List<int>();
@@ -105,9 +87,9 @@ namespace Number_Finder_CLI
             }
             return outArray;
         }
-        static void ListItems(List<int> array) // A convenience function for listing all of the items in an array. 
+        static void ListItems <T> (List<T> array) // A convenience function for listing all of the items in an array. 
         {
-            foreach (int item in array)
+            foreach (T item in array)
             {
                 Console.WriteLine(item);
             }
