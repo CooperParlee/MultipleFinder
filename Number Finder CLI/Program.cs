@@ -10,7 +10,7 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            foreach (int i in Chunkinator.GenerateBlock(2))
+            foreach (int i in MultipleScan.MakeOmelette(10, 1, new int[] {2, 3, 5, 6}, new int[] {1}, 1))
             {
                 Console.Out.WriteLine(i);
             }

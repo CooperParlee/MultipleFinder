@@ -8,6 +8,25 @@ namespace Number_Finder_CLI
 {
     class MultipleScan
     {
+        public static List<int> MakeOmelette(int blockCount, int startBlock, int[] differentialMultiples, int[] multiples, int consistentDifferential)
+        {
+            Console.WriteLine("They say you can't make an omelette without a few Broken Eggs.");
+
+            List<int> multiplesArray = new List<int>();
+            Chunkinator.SetBlockSize(16384);
+            Chunkinator.SetLockedEnabled(true);
+
+            for(int i = 0; i <= blockCount; i++)
+            {
+                List<int> m_LocalPossibilities = IntArrayToList(Chunkinator.GenerateBlock(i + startBlock));
+
+                foreach (int item in MultipleArrayOf(MultipleArrayOfDifferential(m_LocalPossibilities, differentialMultiples, 1), multiples))
+                {
+                    multiplesArray.Add(item);
+                }
+            }
+            return multiplesArray;
+        }
         static List<int> MultipleOf(List<int> inArray, int multiple) // Returns all values that are multiples of "multiple" from inside of inArray.
         {
             List<int> outArray = new List<int>();
@@ -79,5 +98,25 @@ namespace Number_Finder_CLI
 
             return outArray;
         }
+
+        static List<int> IntArrayToList(int[] array)
+        {
+            List<int> outList = new List<int>();
+            foreach (int item in array)
+            {
+                outList.Add(item);
+            }
+            return outList;
+        }
+        static void ReadList<T>(List<T> list)
+        {
+            foreach(T item in list)
+            {
+                Console.WriteLine(item);
+            }
+            
+
+        }
+
     }
 }
