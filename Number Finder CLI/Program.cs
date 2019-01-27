@@ -10,19 +10,31 @@ namespace Number_Finder_CLI
     {
         static void Main(string[] args)
         {
-            foreach (int i in MultipleScan.MakeOmelette(10, 1, new int[] {2, 3, 5, 6}, new int[] {1}, 1))
+            foreach (int i in MakeOmelette(10, 1, new int[] {2, 3, 5, 6}, new int[] {1}, 1))
             {
                 Console.Out.WriteLine(i);
             }
             Console.Read();
         }
 
-        static void ListItems <T> (List<T> array) // A convenience function for listing all of the items in an array. 
+        public static List<int> MakeOmelette(int blockCount, int startBlock, int[] differentialMultiples, int[] multiples, int consistentDifferential)
         {
-            foreach (T item in array)
+            Console.WriteLine("They say you can't make an omelette without a few Broken Eggs.");
+
+            List<int> multiplesArray = new List<int>();
+            Chunkinator.SetBlockSize(16384);
+            Chunkinator.SetLockedEnabled(true);
+
+            for (int i = 0; i <= blockCount; i++)
             {
-                Console.WriteLine(item);
+                List<int> m_LocalPossibilities = MultipleScan.IntArrayToList(Chunkinator.GenerateBlock(i + startBlock));
+
+                foreach (int item in MultipleScan.MultipleArrayOf(MultipleScan.MultipleArrayOfDifferential(m_LocalPossibilities, differentialMultiples, 1), multiples))
+                {
+                    multiplesArray.Add(item);
+                }
             }
+            return multiplesArray;
         }
     }
 }
